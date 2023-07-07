@@ -31,8 +31,6 @@ function closeModal() {
 
 //add Regex for check user input and display error message
 
-
-
 // function for check
 function checkInput(input, regex, text) {
   if (!input.value || !regex.test(input.value)) {
@@ -85,8 +83,11 @@ function displayError(input, text) {
   let newErrorMsg = document.createElement("p");
   newErrorMsg.classList.add("errorMessage");
   newErrorMsg.textContent = text;
-
   errorPart.appendChild(newErrorMsg);
+
+  // add css 
+  newErrorMsg.style.fontSize = "20px";
+  newErrorMsg.style.color = "#fe142f";
 }
 
 // function for hide error message
@@ -146,7 +147,22 @@ submitBtn.addEventListener("click", (e) => {
     && getSelectedOption(userLocation, errorOption)
     && getUserTerms(userTerms, errorTerms)
   ) {
-    alert("inscrit");
+    let validation = document.querySelector('.modal-body');
+    validation.innerHTML = ` 
+    <div class="modal-body">
+      <p class="validation">Merci ! Votre réservation a été reçue.</p>
+      <button class="btn-submit btn-close">Fermer</button>
+    </div>    
+    `
+
+    // add some CSS
+    let validationCSS = document.querySelector('.validation')
+    validationCSS.style.textAlign = "center";
+    validationCSS.style.padding = "250px 0";
+
+    // close button
+    const modalBtnClose = document.querySelector(".btn-close");
+    modalBtnClose.addEventListener("click", closeModal);
   }
   else {
     console.warn("pas inscrit")
