@@ -85,7 +85,7 @@ function displayError(input, text) {
   newErrorMsg.textContent = text;
   errorPart.appendChild(newErrorMsg);
 
-  // add css 
+  // add css for error message
   newErrorMsg.style.fontSize = "20px";
   newErrorMsg.style.color = "#fe142f";
 }
@@ -99,8 +99,8 @@ function hideError(input) {
   }
 }
 
-// Définition des variables pour le formulaire
-//Sélection de la valeur de l'input
+// defining variables for the form
+//input value selection
 let userFirstName = document.getElementById("first");
 let userLastName = document.getElementById("last");
 let userEmail = document.getElementById("email");
@@ -109,11 +109,12 @@ let userBirthdate = document.getElementById("birthdate");
 let userLocation = document.getElementById("location1");
 let userTerms = document.getElementById("checkbox1");
 
-// regex 
+// regex test
 let regexFirstName = /^([A-Za-z]{2,20})?([-]{0,1})?([A-Za-z]{2,20})$/;
 let regexLastName = /^[A-Za-z]{3,20}$/;
 let regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 let regexQuantity = /[0-9]/;
+let regexNumber = /^\d+$/;
 
 // error message text 
 let errorName = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
@@ -124,17 +125,17 @@ let errorEmail = "Veuillez entrer une adresse mail valide.";
 let errorQuantity = "Veuillez saisir un nombre";
 
 // submit button
-
 const submitBtn = document.querySelector(".btn-submit");
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
+  // test different input
   checkInput(userFirstName, regexFirstName, errorName);
   checkInput(userLastName, regexLastName, errorName);
   checkInput(userEmail, regexEmail, errorEmail);
   checkInput(userBirthdate, regexQuantity, errorBirthdate);
-  checkInput(userQuantity, regexQuantity, errorQuantity);
+  checkInput(userQuantity, regexNumber, errorQuantity);
   getSelectedOption(userLocation, errorOption);
   getUserTerms(userTerms, errorTerms);
 
@@ -143,10 +144,12 @@ submitBtn.addEventListener("click", (e) => {
     && !checkInput(userLastName, regexLastName, errorName)
     && !checkInput(userEmail, regexEmail, errorEmail)
     && !checkInput(userBirthdate, regexQuantity, errorBirthdate)
-    && !checkInput(userQuantity, regexQuantity, errorQuantity)
+    && !checkInput(userQuantity, regexNumber, errorQuantity)
     && getSelectedOption(userLocation, errorOption)
     && getUserTerms(userTerms, errorTerms)
   ) {
+
+    // display of the validation message
     let validation = document.querySelector('.modal-body');
     validation.innerHTML = ` 
     <div class="modal-body">
@@ -163,9 +166,6 @@ submitBtn.addEventListener("click", (e) => {
     // close button
     const modalBtnClose = document.querySelector(".btn-close");
     modalBtnClose.addEventListener("click", closeModal);
-  }
-  else {
-    console.warn("pas inscrit")
   }
 }
 );
