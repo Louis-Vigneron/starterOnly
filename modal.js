@@ -127,7 +127,7 @@ let errorQuantity = "Veuillez saisir un nombre";
 // submit button
 const submitBtn = document.querySelector(".btn-submit");
 
-submitBtn.addEventListener("click", (e) => {
+submitBtn.addEventListener("submit", (e) => {
   e.preventDefault();
 
   // test different input
